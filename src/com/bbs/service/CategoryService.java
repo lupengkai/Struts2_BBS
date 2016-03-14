@@ -30,7 +30,7 @@ public class CategoryService {
         }
     }
 
-    public List<Category> list() {
+    public List<Category> list() throws Exception{
         List<Category> categories = new ArrayList<>();
 
         Connection conn = DB.createConn();
@@ -48,6 +48,8 @@ public class CategoryService {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw(e);
+
         } finally {
             DB.close(ps);
             DB.close(conn);
@@ -90,4 +92,29 @@ public class CategoryService {
             DB.close(conn);
         }
     }
+
+
+    public Category loadById(int id) {
+        Category c = null;
+        Connection conn = DB.createConn();
+        String sql = "SELECT * FROM _CATEGORY WHERE ID = ?";
+        PreparedStatement ps = DB.prepare(conn,sql);
+        try {
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                c = new Category();
+                c.setId(rs.getInt("ID"));
+                c.setName(rs.getString("NAME"));
+                c.setDescription(rs.getString("DESCRIPTION"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.close(ps);
+            DB.close(conn);
+        }
+        return c;
+    }
+
 }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=GBK" language="java" pageEncoding="GBK" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,9 +19,11 @@
 </head>
 <body>
 <form action="admin/Category-update" method="post">
-    name:<input name="category.name" />
-    description:<textarea name="category.description"></textarea>
-    <input type="submit" value="add" />
+    <input type="hidden" name="category.id" value="<s:property value="category.id" />">
+    name:<input name="category.name"  value="<s:property value="category.name"/> "/>
+    description:<textarea name="category.description"><s:property value="category.name"/> </textarea>
+    <input type="submit" value="update" />
 </form>
+<s:debug/>
 </body>
 </html>

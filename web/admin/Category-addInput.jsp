@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -24,7 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   <form action="admin/Category-add" method="post">
-  	name:<input name="category.name" />
+      <input type="hidden" name="category.id" >
+  	name:<input name="category.name"  />
   	description:<textarea name="category.description"></textarea>
   	<input type="submit" value="add" /> 
   </form>
