@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="front" namespace="/" extends="struts-default">
+        <default-action-ref name="Category_list"/>
+    <action name="Category_list" class="com.bbs.action.CategoryAction" method="list">
+        <result>/index.jsp</result>
+    </action>
+    </package>
+
+    <package name="admin" namespace="/admin" extends="struts-default">
+        <action name="*-*" class="com.bbs.action.{1}Action" method="{2}">
+            <result>/admin/{1}-{2}.jsp</result>
+            <result name="input">/admin/{1}-{2}.jsp</result>
+        </action>
+    </package>
+</struts>
