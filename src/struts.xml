@@ -5,37 +5,53 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+    
+    <constant name="struts.custom.i18n.resources" value="bbs"/>
+    
+    
     <package name="bbs_default" extends="struts-default">
-<global-exception-mappings>
-    <exception-mapping exception="java.sql.SQLException" result="error"></exception-mapping>
-</global-exception-mappings>
         <global-results>
             <result name="error">/error.jsp</result>
         </global-results>
+         
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+
+
     </package>
 
 
     <package name="front" namespace="/" extends="struts-default">
         <default-action-ref name="Category_list"/>
-    <action name="Category_list" class="com.bbs.action.CategoryAction" method="list">
-        <result>/index.jsp</result>
-    </action>
+        <action name="Category_list" class="com.bbs.action.CategoryAction" method="list">
+            <result>/index.jsp</result>
+        </action>
     </package>
 
-    <package name="admin" namespace="/admin" extends="struts-default">
+    <package name="admin" namespace="/admin" extends="bbs_default">
+
         <default-action-ref name="index"/>
+
         <action name="index">
             <result>/admin/index.html</result>
         </action>
+
         <action name="*-*" class="com.bbs.action.{1}Action" method="{2}">
-           <!-- <exception-mapping exception="java.sql.SQLException" result="error"/>-->
-           <!-- <result name="error">/error.jsp</result>-->
+            <!-- <exception-mapping exception="java.sql.SQLException" result="error"/>-->
+            <!-- <result name="error">/error.jsp</result>-->
             <result>/admin/{1}-{2}.jsp</result>
             <result name="input">/admin/{1}-{2}.jsp</result>
         </action>
 
-    </package>
 
+        <action name="lang" class="com.bbs.action.LangAction">
+            <result>
+                /admin/Login-input.jsp
+            </result>
+        </action>
+
+    </package>
 
 
 </struts>
